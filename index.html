@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineer Portfolio</title>
+    <style>
+        :root {
+            --color-bg-base: #ffffff;
+            --color-bg-elevated: #f8f9fa;
+            --color-bg-surface: #e9ecef;
+            --color-text-primary: #1a1a1a;
+            --color-text-secondary: #4a4a4a;
+            --color-text-muted: #6c757d;
+            --color-accent: #ff8928;
+            --color-accent-hover: #e67820;
+            --color-accent-secondary: #3b9fd8;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--color-bg-base);
+            color: var(--color-text-primary);
+            line-height: 1.8;
+            overflow-x: hidden;
+            font-size: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 3rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        nav a:hover {
+            color: var(--color-accent);
+            background: var(--color-bg-elevated);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 137, 40, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(59, 159, 216, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-image {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--color-accent);
+            box-shadow: 0 0 80px rgba(255, 137, 40, 0.4);
+            margin-bottom: 2.5rem;
+            animation: fadeIn 1s ease-out, float 6s ease-in-out infinite;
+            filter: brightness(1.05);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+            letter-spacing: -3px;
+            line-height: 1.1;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .bio {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--color-accent);
+            color: var(--color-bg-base);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--color-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 137, 40, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+        }
+
+        .btn-outline:hover {
+            background: var(--color-accent);
+            color: var(--color-bg-base);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--color-accent);
+            border-radius: 2px;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--color-bg-elevated);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .skill-category h3 {
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--color-bg-surface);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--color-bg-elevated);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--color-accent);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--color-bg-surface), var(--color-bg-base));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-primary);
+        }
+
+        .project-description {
+            color: var(--color-text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badge {
+            background: rgba(255, 137, 40, 0.12);
+            color: var(--color-accent);
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 137, 40, 0.25);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            text-align: center;
+            background: var(--color-bg-elevated);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 1rem 1.5rem;
+            background: var(--color-bg-surface);
+            border-radius: 12px;
+        }
+
+        .contact-link:hover {
+            color: var(--color-accent);
+            transform: translateY(-3px);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--color-bg-elevated);
+            color: var(--color-text-muted);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .projects-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/892e1383-f626-4ee8-9248-b6ab45ddf32a" alt="Raju Edla Profile" class="profile-image">
+            <h1>Raju Edla</h1>
+            <p class="tagline">Senior IAM Engineer | Identity & Access Management Specialist</p>
+            <p class="bio">Senior IAM Engineer with 6+ years of experience designing and implementing enterprise Identity & Access Management solutions across regulated financial services environments. Expert in SailPoint, Okta, CyberArk, Azure AD, and AWS IAM.</p>
+            <div>
+                <a href="#projects" class="btn">View Projects</a>
+                <a href="#contact" class="btn btn-outline">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="contact-container">
+            <p class="bio" style="color: var(--color-text-secondary); max-width: 700px; margin: 0 auto;">
+                I'm a Senior IAM Engineer with 6+ years of hands-on experience designing, implementing, and supporting enterprise 
+                Identity & Access Management solutions across complex, regulated environments including financial services. 
+                I specialize in building scalable IAM platforms including SailPoint, Okta, CyberArk PAM, Active Directory, and Azure AD, 
+                ensuring secure and least-privilege access controls. My expertise spans automation, cloud IAM, privileged access management, 
+                and regulatory compliance (NIST, ISO 27001, SOX), with a proven track record of reducing manual operations by 45% and 
+                improving authentication response times by 35%.
+            </p>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>IAM Platforms</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">SailPoint IdentityIQ/Now</span>
+                    <span class="skill-tag">Okta</span>
+                    <span class="skill-tag">CyberArk PAM</span>
+                    <span class="skill-tag">Active Directory</span>
+                    <span class="skill-tag">Azure AD (Entra)</span>
+                    <span class="skill-tag">AWS IAM</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>IAM Core Concepts</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">RBAC/ABAC</span>
+                    <span class="skill-tag">SSO</span>
+                    <span class="skill-tag">MFA</span>
+                    <span class="skill-tag">PAM</span>
+                    <span class="skill-tag">User Provisioning</span>
+                    <span class="skill-tag">Access Certification</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Authentication &amp; Protocols</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">SAML 2.0</span>
+                    <span class="skill-tag">OAuth 2.0</span>
+                    <span class="skill-tag">OIDC</span>
+                    <span class="skill-tag">SCIM</span>
+                    <span class="skill-tag">LDAP</span>
+                    <span class="skill-tag">Kerberos</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Development &amp; Automation</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Spring Boot</span>
+                    <span class="skill-tag">RESTful APIs</span>
+                    <span class="skill-tag">PowerShell</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Bash</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Cloud &amp; DevOps</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">Azure</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Kubernetes</span>
+                    <span class="skill-tag">Jenkins</span>
+                    <span class="skill-tag">Azure DevOps</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Security &amp; Compliance</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">NIST</span>
+                    <span class="skill-tag">ISO 27001</span>
+                    <span class="skill-tag">SOX</span>
+                    <span class="skill-tag">GDPR</span>
+                    <span class="skill-tag">Security Architecture</span>
+                    <span class="skill-tag">Audit Support</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IAM Architecture Diagram -->
+    <section id="architecture" style="padding: 3rem 2rem; max-width: 1200px; margin: 0 auto;">
+        <h2>Modern IAM Architecture with AI Integration</h2>
+        <div style="background: var(--color-bg-elevated); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0, 0, 0, 0.08); margin-bottom: 3rem;">
+            <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/01242649b5fd0eaed6812922c75e5bf0bac7d3f6.jpg" alt="IAM Modernization Journey Flowchart" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 1.5rem;">
+            <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.3rem;">IAM Modernization Journey</h3>
+            <p style="color: var(--color-text-secondary); line-height: 1.8;">Modern Identity & Access Management architecture integrating AI-driven governance, Zero Trust security models, and automated compliance. This enterprise IAM framework encompasses SSO/MFA, IGA (Identity Governance Administration), PAM (Privileged Access Management), and fine-grained authorization with OIDC, SAML, and OAuth protocols.</p>
+        </div>
+        
+        <div style="background: var(--color-bg-elevated); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0, 0, 0, 0.08); margin-bottom: 3rem;">
+            <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3c748bb16a36a416094e99ad67468337e699370e.jpg" alt="Complete Identity Management Ecosystem" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 1.5rem;">
+            <h3 style="color: var(--color-accent-secondary); margin-bottom: 1rem; font-size: 1.3rem;">Complete Identity Management Ecosystem</h3>
+            <p style="color: var(--color-text-secondary); line-height: 1.8;">Comprehensive IAM ecosystem built on a foundation of Core Identity & Authentication Management, Access Management & Governance, Privileged Access Management, Compliance & Verification, Machine Identity, and Specialized Solutions. AI-enhanced identity governance automates role assignments, detects privilege escalations, and enforces least-privilege access across hybrid cloud environments.</p>
+        </div>
+        
+        <div style="background: var(--color-bg-elevated); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0, 0, 0, 0.08);">
+            <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/3b4e7a858a5d807c8925a8113f8bdf09db2c105a.jpg" alt="Cloud IAM Architecture Strategy" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 1.5rem;">
+            <h3 style="color: var(--color-accent); margin-bottom: 1rem; font-size: 1.3rem;">Cloud-Native IAM Architecture</h3>
+            <p style="color: var(--color-text-secondary); line-height: 1.8;">Advanced cloud IAM architecture featuring workload identity management, federated systems integration, and DevOps pipeline security. Implements OAuth, API key authentication, GitOps agents, and secure identity propagation across compute, storage, databases, and deployment pipelines with continuous monitoring and governance.</p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">🏦</div>
+                <div class="project-content">
+                    <h3 class="project-title">Enterprise IAM Platform - Credit One Bank</h3>
+                    <p class="project-description">Designed and implemented comprehensive IAM solution supporting 10,000+ users across regulated financial services environment with SailPoint, Okta, CyberArk, and Azure AD integration.</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">SailPoint IdentityIQ</span>
+                        <span class="tech-badge">Okta</span>
+                        <span class="tech-badge">CyberArk PAM</span>
+                        <span class="tech-badge">Azure AD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🔐</div>
+                <div class="project-content">
+                    <h3 class="project-title">Privileged Access Management System</h3>
+                    <p class="project-description">Implemented CyberArk PAM solution with vault configuration, credential rotation, session monitoring, and password management achieving 99.9% platform availability.</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">CyberArk</span>
+                        <span class="tech-badge">PowerShell</span>
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Session Monitoring</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">⚡</div>
+                <div class="project-content">
+                    <h3 class="project-title">IAM Automation Framework</h3>
+                    <p class="project-description">Developed automation framework using PowerShell, Python, and AWS Lambda reducing manual operations by 45% and improving authentication response times by 35%.</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">PowerShell</span>
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">AWS Lambda</span>
+                        <span class="tech-badge">API Integration</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🔄</div>
+                <div class="project-content">
+                    <h3 class="project-title">SSO Federation Architecture</h3>
+                    <p class="project-description">Configured SAML 2.0, OAuth 2.0, and OIDC federation integrating 50+ enterprise and cloud applications with Azure AD, Okta, and Active Directory for centralized authentication.</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">SAML 2.0</span>
+                        <span class="tech-badge">OAuth 2.0</span>
+                        <span class="tech-badge">OIDC</span>
+                        <span class="tech-badge">MFA</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">☁️</div>
+                <div class="project-content">
+                    <h3 class="project-title">Cloud IAM Integration</h3>
+                    <p class="project-description">Built and optimized provisioning workflows, role models (RBAC/ABAC), and access policies across AWS and Azure hybrid cloud environments supporting SSO and MFA.</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">AWS IAM</span>
+                        <span class="tech-badge">Azure AD</span>
+                        <span class="tech-badge">RBAC</span>
+                        <span class="tech-badge">Terraform</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🛠️</div>
+                <div class="project-content">
+                    <h3 class="project-title">Custom IAM Connectors & APIs</h3>
+                    <p class="project-description">Developed custom integration services using Java, Spring Boot, and RESTful APIs for authentication workflows, user provisioning, and SailPoint connector development.</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Java</span>
+                        <span class="tech-badge">Spring Boot</span>
+                        <span class="tech-badge">RESTful APIs</span>
+                        <span class="tech-badge">Microservices</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-container">
+            <p class="bio" style="color: var(--color-text-secondary);">
+                I'm always interested in hearing about new opportunities, collaborations, and exciting projects. 
+                Feel free to reach out!
+            </p>
+            <div class="contact-links">
+                <a href="mailto:rajupateledla@outlook.com" class="contact-link">
+                    <span class="contact-icon">📧</span>
+                    <span>rajupateledla@outlook.com</span>
+                </a>
+                <a href="tel:+15513626534" class="contact-link">
+                    <span class="contact-icon">📱</span>
+                    <span>+1 551-362-6534</span>
+                </a>
+                <a href="https://linkedin.com/in/raju-edla" target="_blank" rel="noopener noreferrer" class="contact-link">
+                    <span class="contact-icon">💼</span>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/rajuedla" target="_blank" rel="noopener noreferrer" class="contact-link">
+                    <span class="contact-icon">💻</span>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Raju Edla | Senior IAM Engineer | Built with passion and code.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .skill-category').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
